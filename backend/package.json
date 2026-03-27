@@ -5,9 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_ENV=development PORT=3002 tsx watch src/index.ts",
-    "build": "node ./build.mjs",
-    "start": "node --enable-source-maps ./dist/index.mjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "build": "node build.mjs",
+    "start": "node dist/index.mjs"
   },
   "dependencies": {
     "@fastify/cors": "^10.1.0",
@@ -24,9 +23,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/pdf-parse": "^1.1.4",
     "cross-env": "^7.0.3",
-    "esbuild": "^0.25.8",
+    "esbuild": "0.25.8",
     "thread-stream": "3.1.0",
     "tsx": "^4.21.0",
     "typescript": "^5.4.0"
