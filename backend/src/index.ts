@@ -6,7 +6,6 @@ import multipart from "@fastify/multipart";
 
 import { registerRoutes } from "./routes/index.js";
 
-
 const fastify = Fastify({ logger: true });
 
 // Root check
@@ -25,14 +24,24 @@ await fastify.register(multipart);
 // Register all routes
 await registerRoutes(fastify);
 
-// Debug routes (VERY IMPORTANT)
+// Debug routes
 console.log(fastify.printRoutes());
 
-// Start server
-fastify.listen({ port: 3001 }, (err, address) => {
-  if (err) {
-    console.error(err);
+// ✅ IMPORTANT FIX HERE
+const start = async () => {
+  try {
+    const PORT = Number(process.env.PORT) || 3001;
+
+    await fastify.listen({
+      port: PORT,
+      host: "0.0.0.0", // 🔥 THIS FIXES YOUR RENDER ERROR
+    });
+
+    console.log(`🚀 Server running on port ${PORT}`);
+  } catch (err) {
+    fastify.log.error(err);
     process.exit(1);
   }
-  console.log(`🚀 Server running at ${address}`);
-});
+};
+
+start();
